@@ -29,6 +29,16 @@ The analysis expects a CSV file (`Merged_AUT_Human_AI.csv`) with the following r
 - `response_num`: Serial position of the response (e.g. 0-18)
 - `target`: Originality rating score
 
+## Dataset Details
+
+The file `Details of AUT Open Dataset used in OSCAI.xlsx` provides a brief reference to the AUT Open dataset used in this project. It includes:
+
+- Original study
+- Participant counts and response counts
+- Participants and rater instructions
+- Rater counts
+- Links to Datasets and Papers
+
 ## Installation
 
 1. Clone or download this repository
@@ -40,14 +50,26 @@ pip install -r requirements.txt
 
 ## Usage
 
+### Visualization Analysis
+
 1. Ensure your data file `Merged_AUT_Human_AI.csv` is in the same directory as the script
-2. Run the analysis:
+2. Run the visualization analysis:
 
 ```bash
 python AUT_stratified_bins_with_95_CI.py
 ```
 
+### Statistical Testing
+
+To perform t-tests between the response count bins:
+
+```bash
+python AUT_bins_t_test.py
+```
+
 ## Output
+
+### Visualization Analysis
 
 The script generates a `figures_uses_bins_CI` directory containing:
 
@@ -63,6 +85,21 @@ Each plot shows:
 - 95% confidence intervals as shaded areas
 - Participant counts for each cohort
 
+### Statistical Testing
+
+The t-test script generates a `t_test_results` directory containing:
+
+- **T-test results**: `t_test_results_[analysis_name].csv` - Pairwise t-tests between bins
+- **Summary statistics**: `summary_stats_[analysis_name].csv` - Descriptive statistics for each bin
+
+The analysis includes:
+
+- Overall analysis across all studies
+- Study-specific analyses
+- Prompt-specific analyses (first 5 prompts)
+- Effect sizes (Cohen's d)
+- Significance indicators (p < 0.05, p < 0.01)
+
 ## Statistical Methods
 
 - **Normalization**: Z-scores calculated within study and prompt groups
@@ -75,18 +112,23 @@ Each plot shows:
 - `numpy`: Numerical computations
 - `pandas`: Data manipulation and analysis
 - `matplotlib`: Plotting and visualization
+- `scipy`: Statistical testing (t-tests, effect sizes)
 
 ## File Structure
 
 ```
-├── AUT_stratified_bins_with_95_CI.py    # Main analysis script
+├── AUT_stratified_bins_with_95_CI.py    # Main visualization script
+├── AUT_bins_t_test.py                   # Statistical testing script
 ├── Merged_AUT_Human_AI.csv              # Input data file
 ├── requirements.txt                      # Python dependencies
 ├── README.md                            # This file
-└── figures_uses_bins_CI/                # Generated output directory
-    ├── AUT_bins_global.png              # Overall analysis
-    ├── by_study/                        # Study-specific analyses
-    │   ├── all/                         # All studies combined
-    │   └── [study_name]/                # Individual study results
-    └── AUT_bins_prompt_[prompt].png     # Per-prompt analyses
+├── figures_uses_bins_CI/                # Visualization output directory
+│   ├── AUT_bins_global.png              # Overall analysis
+│   ├── by_study/                        # Study-specific analyses
+│   │   ├── all/                         # All studies combined
+│   │   └── [study_name]/                # Individual study results
+│   └── AUT_bins_prompt_[prompt].png     # Per-prompt analyses
+└── t_test_results/                      # Statistical testing output directory
+    ├── t_test_results_[analysis].csv    # T-test results
+    └── summary_stats_[analysis].csv     # Summary statistics
 ```

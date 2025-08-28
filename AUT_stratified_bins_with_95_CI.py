@@ -134,7 +134,7 @@ def plot_per_prompt(df: pd.DataFrame, out_dir: Path, title_suffix: str = "") -> 
         plt.xlabel("Response number (serial position)")
         plt.ylabel("Originality (z-score; within study and prompt)")
         t_suffix = f" — {title_suffix}" if title_suffix else ""
-        plt.title(f"Stratified originality by response number (95% CI){t_suffix}\nPrompt: {prompt} (n={total_participants})", fontsize=11, pad=20)
+        plt.title(f"Stratified originality by response number (95% CI){t_suffix}\nPrompt: {prompt} (participants n={total_participants})", fontsize=11, pad=20)
         plt.xticks(list(range(0, 19)))
         plt.xlim(0, 18)
         plt.legend(frameon=False, fontsize=8, ncol=1, title="Cohorts by total responses per participant", title_fontsize=8)
