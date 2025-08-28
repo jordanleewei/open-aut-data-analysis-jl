@@ -49,10 +49,10 @@ python AUT_stratified_bins_with_95_CI.py
 
 ## Output
 
-The script generates a `figures_uses_widebins_sd` directory containing:
+The script generates a `figures_uses_bins_CI` directory containing:
 
-- **Overall analysis**: `widebins_sd_global.png` - Combined analysis across all studies
-- **Per-prompt analysis**: Individual plots for each AUT prompt
+- **Overall analysis**: `AUT_bins_global.png` - Combined analysis across all studies
+- **Per-prompt analysis**: `AUT_bins_prompt_[prompt_name].png` - Individual plots for each AUT prompt
 - **Study-specific analysis**: Separate directories for each study with their respective plots
 
 Each plot shows:
@@ -83,14 +83,10 @@ Each plot shows:
 ├── Merged_AUT_Human_AI.csv              # Input data file
 ├── requirements.txt                      # Python dependencies
 ├── README.md                            # This file
-└── figures_uses_widebins_sd/            # Generated output directory
-    ├── widebins_sd_global.png           # Overall analysis
+└── figures_uses_bins_CI/                # Generated output directory
+    ├── AUT_bins_global.png              # Overall analysis
     ├── by_study/                        # Study-specific analyses
     │   ├── all/                         # All studies combined
     │   └── [study_name]/                # Individual study results
-    └── widebins_sd_prompt_[prompt].png  # Per-prompt analyses
+    └── AUT_bins_prompt_[prompt].png     # Per-prompt analyses
 ```
-
-## Citation
-
-If you use this analysis in your research, please cite the original AUT studies and this analysis methodology.

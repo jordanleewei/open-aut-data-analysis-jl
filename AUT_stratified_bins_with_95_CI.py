@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 # Bins : [1–6], [7–12], [13+]
 BINS: list[tuple[int, int]] = [(1, 6), (7, 12), (13, 999)]
 
-
 def read_csv_robust(path: Path) -> pd.DataFrame:
     try:
         return pd.read_csv(path)
@@ -27,7 +26,6 @@ def sanitize_filename(text: str) -> str:
 
 def ensure_numeric(series: pd.Series) -> pd.Series:
     return pd.to_numeric(series, errors="coerce")
-
 
 def filter_outliers_iqr(
     df: pd.DataFrame,
@@ -136,11 +134,11 @@ def plot_per_prompt(df: pd.DataFrame, out_dir: Path, title_suffix: str = "") -> 
         plt.xlabel("Response number (serial position)")
         plt.ylabel("Originality (z-score; within study and prompt)")
         t_suffix = f" — {title_suffix}" if title_suffix else ""
-        plt.title(f"Stratified originality by response number (95% CI){t_suffix} — Prompt: {prompt} (participants n={total_participants})")
+        plt.title(f"Stratified originality by response number (95% CI){t_suffix}\nPrompt: {prompt} (n={total_participants})", fontsize=11, pad=20)
         plt.xticks(list(range(0, 19)))
         plt.xlim(0, 18)
         plt.legend(frameon=False, fontsize=8, ncol=1, title="Cohorts by total responses per participant", title_fontsize=8)
-        fname = out_dir / f"widebins_sd_prompt_{sanitize_filename(str(prompt))}.png"
+        fname = out_dir / f"AUT_bins_prompt_{sanitize_filename(str(prompt))}.png"
         plt.tight_layout()
         plt.savefig(fname, dpi=150)
         plt.close()
@@ -152,7 +150,7 @@ def plot_overall(df: pd.DataFrame, out_dir: Path, title_suffix: str = "") -> Pat
     df_clean = df[(df["response_num"] >= 0) & (df["response_num"] <= 18)].copy()
     df_clean = filter_outliers_iqr(df_clean, ["response_num"], "target_norm")
     if df_clean.empty:
-        raise SystemExit("No data after outlier filtering for overall wide-bins plot")
+        raise SystemExit("No data after outlier filtering for overall bins plot")
 
     counts = df_clean.groupby(["prompt", "participant"]).size()
     total_participants = df_clean["participant"].nunique()
@@ -184,11 +182,11 @@ def plot_overall(df: pd.DataFrame, out_dir: Path, title_suffix: str = "") -> Pat
     plt.xlabel("Response number (serial position)")
     plt.ylabel("Originality (z-score; within study and prompt)")
     t_suffix = f" — {title_suffix}" if title_suffix else ""
-    plt.title(f"Stratified originality by response number (95% CI){t_suffix} — Overall (participants n={total_participants})")
+    plt.title(f"Stratified originality by response number (95% CI){t_suffix}\nOverall participants (n={total_participants})", fontsize=11, pad=20)
     plt.xticks(list(range(0, 19)))
     plt.xlim(0, 18)
     plt.legend(frameon=False, fontsize=9, ncol=1, title="Cohorts by total responses per participant", title_fontsize=9)
-    fname = out_dir / "widebins_sd_global.png"
+    fname = out_dir / "AUT_bins_global.png"
     plt.tight_layout()
     plt.savefig(fname, dpi=150)
     plt.close()
@@ -198,7 +196,7 @@ def plot_overall(df: pd.DataFrame, out_dir: Path, title_suffix: str = "") -> Pat
 def main():
     base_dir = Path(__file__).resolve().parent
     input_csv = base_dir / "Merged_AUT_Human_AI.csv"
-    out_dir = base_dir / "figures_uses_widebins_sd"
+    out_dir = base_dir / "figures_uses_bins_CI"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     df = read_csv_robust(input_csv)
