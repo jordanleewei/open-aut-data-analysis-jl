@@ -6,6 +6,7 @@ This project analyzes Alternative Uses Task (AUT) data to examine originality pa
 
 The analysis focuses on the "uses" responses from AUT studies, examining how originality scores vary across serial positions (response numbers 1-18) for different cohorts of participants based on their total response counts. The analysis creates visualizations with 95% confidence intervals to show statistical significance.
 
+
 ## Features
 
 - **Stratified Analysis**: Groups participants into bins based on total response counts:
@@ -20,7 +21,7 @@ The analysis focuses on the "uses" responses from AUT studies, examining how ori
 
 ## Data Requirements
 
-The analysis expects a CSV file (`Merged_AUT_Human_AI.csv`) with the following required columns:
+The analysis expects a CSV file (`Merged_AUT_Human_Rating.csv`) with the following required columns:
 
 - `type`: Response type (filtered to "uses" only)
 - `src`: Study source identifier
@@ -52,7 +53,7 @@ pip install -r requirements.txt
 
 ### Visualization Analysis
 
-1. Ensure your data file `Merged_AUT_Human_AI.csv` is in the same directory as the script
+1. Ensure your data file `Merged_AUT_Human_Rating.csv` is in the same directory as the script
 2. Run the visualization analysis:
 
 ```bash
@@ -119,7 +120,7 @@ The analysis includes:
 ```
 ├── AUT_stratified_bins_with_95_CI.py    # Main visualization script
 ├── AUT_bins_t_test.py                   # Statistical testing script
-├── Merged_AUT_Human_AI.csv              # Input data file
+├── Merged_AUT_Human_Rating.csv              # Input data file
 ├── requirements.txt                      # Python dependencies
 ├── README.md                            # This file
 ├── figures_uses_bins_CI/                # Visualization output directory

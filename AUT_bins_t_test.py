@@ -436,7 +436,7 @@ def save_position_results(results: Dict, output_dir: Path) -> None:
 def main():
     """Main function to run t-test analysis by response position."""
     base_dir = Path(__file__).resolve().parent
-    input_csv = base_dir / "Merged_AUT_Human_AI.csv"
+    input_csv = base_dir / "Merged_AUT_Human_Rating.csv"
     out_dir = base_dir / "t_test_results"
     out_dir.mkdir(parents=True, exist_ok=True)
     

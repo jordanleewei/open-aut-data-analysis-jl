@@ -195,7 +195,7 @@ def plot_overall(df: pd.DataFrame, out_dir: Path, title_suffix: str = "") -> Pat
 
 def main():
     base_dir = Path(__file__).resolve().parent
-    input_csv = base_dir / "Merged_AUT_Human_AI.csv"
+    input_csv = base_dir / "Merged_AUT_Human_Rating.csv"
     out_dir = base_dir / "figures_uses_bins_CI"
     out_dir.mkdir(parents=True, exist_ok=True)
 
